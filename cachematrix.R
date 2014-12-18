@@ -21,15 +21,17 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## This function returns the inverse of a matrix stored in x$get(). If a matrix Y is provided as a second argument, then
+## the function determines whether it differs from x$get(). If so, it changes the matriz stored in x$get() and calculates it's inverse. If not (...) argument is provided it first checks whether the inverse of x$get() is cached.
+## When no (...) argument is provided it checks whether the inverse of x$get() has been computed and cached. If not, it computes
+## the inverse and caches it for future use.
 
 cacheSolve <- function(x, ...) {
-        ## The (...), if provided, argument is used to change the old matrix by a new one##
-	## without the need to call makeCachematrix again.                  ##
+        ## The (...) argument, if provided, is used to change the old matrix by a new one
+	## without the need to call makeCachematrix again.                 
 	  dots <-list(...)
-	## The next line changes the matrix stored in output of makeCacheMatrix for the matrix in ##
-        ## the argument (...) in case it is provided. Nothing happens, if provided matrix is the same as ##
-        ## the one the first time makeCacheMatrix is called. ##
+	## The next line changes the matrix stored in output of makeCacheMatrix for the matrix in the argument (...)
+        ## in case it is provided. Nothing happens, if provided matrix is the same as the originally provided.
         if (length(dots)==1 && !identical(dots[[1]],x$get())) {x$set(dots[[1]])}
 	  m <- x$getInverse()
         if(!is.null(m)) {
